@@ -1,0 +1,59 @@
+[
+  {
+    "type": "group",
+    "title": "General",
+    "slug": "general",
+    "parents": [],
+    "color": "#93B4DB"
+  },
+  {
+    "type": "group",
+    "title": "School",
+    "slug": "school",
+    "parents": [],
+    "color": "#99CBCC"
+  },
+  {
+    "type": "group",
+    "title": "Numbers",
+    "slug": "numbers",
+    "parents": [],
+    "color": "#ccc899"
+  },
+  {
+    "type": "card",
+    "title": "Help Me",
+    "slug": "help",
+    "parents": ["general"],
+    "phrases": [
+      {
+        "symbol": "hand",
+        "phrase": "Can you help me?"
+      },
+      {
+        "symbol": "hand",
+        "phrase": "Can I help you?"
+      }
+    ]
+  },
+  {
+    "type": "card",
+    "title": "Hungry",
+    "slug": "hungry",
+    "parents": ["general", "foods"],
+    "phrases": [
+      {
+        "symbol": "hand",
+        "phrase": "I'm hungry!"
+      },
+      {
+        "symbol": "hand",
+        "phrase": "Are you hungry?"
+      },
+      {
+        "symbol": "hand",
+        "phrase": "Can you prepare me food?"
+      }
+    ]
+  }
+]
