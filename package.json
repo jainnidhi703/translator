@@ -1,0 +1,27 @@
+{
+  "name": "translator",
+  "version": "1.0.0",
+  "description": "A node project to convert one dialect to another",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "fs": "^0.0.1-security",
+    "google-translate-api": "^2.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.7.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jainnidhi703/translator.git"
+  },
+  "author": "Nidhi Jain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jainnidhi703/translator/issues"
+  },
+  "homepage": "https://github.com/jainnidhi703/translator#readme"
+}
