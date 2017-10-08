@@ -2,55 +2,39 @@ const googleTranslate = require('google-translate-api');
 const Promise = require('bluebird');
 const fs = require('fs');
 
-Promise.promisifyAll(googleTranslate);
 Promise.promisifyAll(fs);
+Promise.promisifyAll(googleTranslate);
 
-const translator = (row, field) => {
-  return googleTranslate(row[field], { from: 'en', to: 'hi' })
-    .then(res => {
-      row[field] = res.text;
-      return row;
-    })
-    .catch(err => {
-      console.error(err);
-    });
+const from = 'en';
+const to = 'hi';
+
+const translate = async (text, from, to) => {
+  const { text: translatedText } = await googleTranslate(text, { from, to });
+  return translatedText;
 };
 
-const translate = text => {
-  Promise.map(text, function(row) {
-    return translator(row, 'title');
-  })
-    .then(function() {
-      Promise.map(text, function(row) {
-        if (row.phrases) {
-          return Promise.map(row.phrases, function(data) {
-            return translator(data, 'phrase');
-          }).catch(err => {
-            console.log(err);
-          });
-        }
-      })
-        .then(function() {
-          console.log(JSON.stringify(text));
-        })
-        .catch(err => {
-          console.log('main ', err);
-        });
-    })
-    .catch(err => {
-      console.log('main ', err);
-    });
+const readFile = async filename => {
+  const result = await fs.readFileAsync(filename, 'utf8');
+  return JSON.parse(result);
 };
 
-const readFile = filename => {
-  fs
-    .readFileAsync(filename, 'utf8')
-    .then(data => {
-      translate(JSON.parse(data));
-    })
-    .then();
+const translateField = async data => {
+  const translatedText = await Promise.map(data, async row => {
+    const translated = await translate(row.title, from, to);
+    row.title = translated;
+
+    if (row.phrases) {
+      const translatedText = await Promise.map(row.phrases, async p => {
+        const translatedPhrase = await translate(p.phrase, from, to);
+        p.phrase = translatedPhrase;
+      });
+    }
+    return row;
+  });
+  console.log('translatedText', JSON.stringify(translatedText));
 };
 
-readFile(process.argv[2]);
-
-module.exports = {};
+Promise.resolve()
+  .then(() => readFile(process.argv[2]))
+  .then(translateField)
+  .catch(console.error);
