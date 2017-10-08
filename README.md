@@ -1,2 +1,3 @@
-# translator
-A node project to convert one dialect to another
+# Translator
+A demo node project for google-translate
+
